@@ -10,24 +10,13 @@ const port = 5000 ;
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
-
 //mongodb database connection
 bdConnection()
 
-//
-const userRoutes = require('./routes/user.routes')
 
-//api routes
 app.get('/', (req,res)=>{
    res.send('hello world')
 })
-
-app.post('/user',(req,res)=>{
-    const user = req.body;
-    console.log(user);
-})
-
-app.use('/api/v1/user/', userRoutes)
 
 app.listen(port,()=>{
     console.log('server running on port', port);

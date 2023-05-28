@@ -16,7 +16,7 @@ exports.getUser = async (req,res)=>{
 
 exports.postUser = async(req,res)=>{
    try {
-    const {email, password,firstName,lastName} =  (req.body);
+    const {email, password,firstName} =  (req.body);
     const userExists = await User.findOne({email})
     console.log(userExists);
     if(userExists){
@@ -32,18 +32,10 @@ exports.postUser = async(req,res)=>{
     const saltRounds = 10;
     const salt = await bcrypt.genSaltSync(saltRounds)
     const hashedPassword = await bcrypt.hashSync(password,salt);
-
-    const user = await User({
-        firstName,
-        lastName,
-        password: hashedPassword,
-        email
-    })
-   const result = await user.save()
+    console.log(hashedPassword);
     res.status(201).json({
         status : 'success',
         message: 'data insert successfully',
-        data: result
     })
    } catch (error) {
     res.status(400).json({

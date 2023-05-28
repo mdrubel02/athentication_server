@@ -16,13 +16,19 @@ const userSchema = mongoose.Schema(
     email:{
         type: String,
         unique: true,
-        require: [true, 'name must be require']
+        require: [true, 'email address is require'],
+        validate:{
+            validator: (value)=>
+            validator.isStrongPassword(value,{
+                minLength: 6,
+                minLowercase:2,
+                minNumbers:1,
+                minUppercase: 1,
+                minSymbol: 1,
+            }),
+            message: "Password {value} is not enough"
+        }
     },
-    password:{
-        type: String,
-        unique: true,
-        require: [true, 'password is require'],
-    }
 },
 {
     timestamps: true,

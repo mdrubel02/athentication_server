@@ -22,11 +22,6 @@ app.get('/', (req,res)=>{
    res.send('hello world')
 })
 
-app.post('/user',(req,res)=>{
-    const user = req.body;
-    console.log(user);
-})
-
 app.use('/api/v1/user/', userRoutes)
 
 app.listen(port,()=>{

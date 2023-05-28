@@ -1,5 +1,6 @@
 const User = require("../model/user.schema");
 const bcrypt = require('bcryptjs');
+const saltRounds = bcrypt.genSaltSync(10);
 
 exports.userCreateService = async (data)=>{
    const {email,password} = data;
@@ -8,7 +9,7 @@ exports.userCreateService = async (data)=>{
     res.status(406).json({message: 'user already exists'})
     return;
    }
-   const saltRounds = 10;
+
    const salt = await bcrypt.genSaltSync(saltRounds)
    const hashedPassword = await bcrypt.hashSync(password,salt);
    console.log(hashedPassword);
