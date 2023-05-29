@@ -56,38 +56,26 @@ exports.postUser = async (req, res) => {
 }
 
 exports.postLogin = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const user = await User.findOne({ email })
-        console.log(user.password);
-        if (!user) {
-            return res.status(406).json({
-                message: 'your credent not found'
-            })
-        }
-
-        const matched = await bcrypt.compare(password, user.password)
-        console.log(matched);
-        if (!matched) {
-            res.status(406).json({
-                message: 'Your Password is not correct'
-            })
-        }
-        const payload = {
-            username: email,
-            _id: user._id
-        }
-        const token = jwt.sign({ payload }, process.env.SECRET_KEY, { expiresIn: '6d' })
-        console.log(token);
-        res.status(201).json({
-            status: 'success',
-            token: token,
-            user: user
-        })
-    } catch (error) {
-        res.status(401).json({
-            status: 'filed',
-            message: error.message
+    const { email, password } = req.body;
+    const user = await User.findOne({ email })
+    console.log(user.password);
+    if (!user) {
+        return res.status(406).json({
+            message: 'your credent not found'
         })
     }
+
+    const matched = await bcrypt.compare(password, user.password)
+    console.log(matched);
+    if(!matched){
+        res.status(406).json({
+            message: 'Your Password is not correct'
+        })
+    }
+    const payload = {
+        email,
+        id: user._id
+    }
+    const token = jwt.sign({payload}, process.env.SECRET_KEY, { expiresIn: '6d' } )
+    console.log(token);
 }

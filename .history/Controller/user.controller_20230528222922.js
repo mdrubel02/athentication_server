@@ -81,7 +81,7 @@ exports.postLogin = async (req, res) => {
         console.log(token);
         res.status(201).json({
             status: 'success',
-            token: token,
+            data: token,
             user: user
         })
     } catch (error) {
