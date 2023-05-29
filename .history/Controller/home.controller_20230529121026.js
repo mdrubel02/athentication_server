@@ -1,11 +1,18 @@
 const Home = require('../model/home.schema')
 exports.homeGet = async (req, res) => {
     try {
-        const result = await Home.find({});
-        res.status(201).json({
-            status: 'success',
-            data: result
-        })
+        const { amount, description, type } = req.body;
+        console.log(type);
+        console.log(req.User._id);
+        // const transaction = new Transaction({
+        //   amount,
+        //   description,
+        //   date,
+        //   user_id: req.user._id,
+        //   category_id,
+        // });
+        // await transaction.save();
+        res.send('success');
 
     } catch (error) {
         res.status(406).json({

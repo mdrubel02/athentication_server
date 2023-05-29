@@ -1,0 +1,37 @@
+exports.homeGet = async (req,res)=>{
+    try {
+        const { amount, description, type } = req.body;
+        console.log(type);
+        console.log(req.User._id);
+        // const transaction = new Transaction({
+        //   amount,
+        //   description,
+        //   date,
+        //   user_id: req.user._id,
+        //   category_id,
+        // });
+        // await transaction.save();
+        res.send('success');
+        
+    } catch (error) {
+        res.status(406).json({
+            status: 'filed',
+            message: error.message
+        })
+    }
+}
+
+exports.homePost = async (req,res)=>{
+    try {
+        const { amount, description, type } = req.body;
+        console.log(type);
+        console.log(req.User._id);
+        res.send('hello post user')
+    } catch (error) {
+        res.status(406).json({
+            status: 'filed',
+            message: 'data not inserted',
+            err: error.message,
+        })
+    }
+}
